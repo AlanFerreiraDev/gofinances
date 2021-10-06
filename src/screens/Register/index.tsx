@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Modal } from 'react-native';
 
-import { Input } from '../../components/Forms/Input';
-import { Button } from '../../components/Forms/Button';
-import { TransactionTypeButton } from '../../components/Forms/TransactionTypeButton';
-import { CategorySelectButton } from '../../components/Forms/CategorySelectButton';
+import { Input } from '../../components/Form/Input';
+import { Button } from '../../components/Form/Button';
+import { TransactionTypeButton } from '../../components/Form/TransactionTypeButton';
+import { CategorySelectButton } from '../../components/Form/CategorySelectButton';
 
 import {
   Container,
