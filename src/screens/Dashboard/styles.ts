@@ -1,10 +1,16 @@
 import styled from 'styled-components/native';
+import { FlatList } from 'react-native';
 import { Platform } from 'react-native';
 
 import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
 // Já vem instalada no expo
 import { Feather } from '@expo/vector-icons';
-import { getStatusBarHeight } from 'react-native-iphone-x-helper';
+import {
+  getBottomSpace,
+  getStatusBarHeight,
+} from 'react-native-iphone-x-helper';
+
+import { DataListProps } from '.';
 
 const plataforma = Platform.OS;
 
@@ -97,4 +103,16 @@ export const Transactions = styled.View`
 export const Title = styled.Text`
   font-size: ${RFValue(18)}px;
   font-family: ${({ theme }) => theme.fonts.regular};
+
+  margin-bottom: 16px;
 `;
+
+export const TransactionList = styled(
+  FlatList as new () => FlatList<DataListProps>
+) // crio uma nova tipagem personalizada para a FlatList, tudo isso para conseguir usar no index
+  .attrs({
+    showsVerticalScrollIndicator: false,
+    contentContainerStyle: {
+      paddingBottom: getBottomSpace(), // espaço para iphone embaixo dos cards
+    },
+  })``;
