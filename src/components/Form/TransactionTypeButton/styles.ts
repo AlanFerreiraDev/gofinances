@@ -36,7 +36,6 @@ export const Container = styled.View<ContainerProps>`
     css`
       background-color: ${({ theme }) => theme.colors.attention_light};
     `}
-
   `;
 
   export const Button = styled(RectButton)`

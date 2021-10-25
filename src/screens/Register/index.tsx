@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Modal,
   TouchableWithoutFeedback, // Junto com o keyboard.dismiss permite que o usuário clique fora do campo de texto para esconder o teclado
@@ -9,6 +9,11 @@ import {
 // Validação de formulário
 import * as Yup from 'yup'; 
 import { yupResolver } from '@hookform/resolvers/yup'; // Permite validar o formulário
+
+// AsyncStorage
+import AsyncStorage from '@react-native-async-storage/async-storage';
+// Chave do AsyncStorage
+const dataKey = '@gofinances:transactions';
 
 import { useForm } from 'react-hook-form';
 
@@ -76,7 +81,7 @@ export function Register() {
     setCategoryModalOpen(false);
   }
 
-  function handleRegister(form : FormData) { // Função para enviar os dados do form
+  async function handleRegister(form : FormData) { // Função para enviar os dados do form
     // Validação do transactionType
     if (!transactionType) 
       return Alert.alert('Erro', 'Selecione um tipo de transação');
@@ -85,14 +90,47 @@ export function Register() {
     if (category.key === 'category')
       return Alert.alert('Erro', 'Selecione uma categoria');
 
-    const data = {
+    const newTransaction = {
       name: form.name,
       amount: form.amount,
       transactionType,
       category: category.key,
     }
-    console.log(data);
+
+    // Tratativa de erro
+    try {
+      // Armazenar mais de um dado no AsyncStorage
+      const data = await AsyncStorage.getItem(dataKey);
+      const currentData = data ? JSON.parse(data) : []; // Se não existir, cria um array vazio
+
+      // Pego os dados do formulário e adiciono ao array
+      const dataFormatted = [
+        ...currentData,
+        newTransaction,
+      ];
+
+      await AsyncStorage.setItem(dataKey, JSON.stringify(dataFormatted));
+
+    } catch (error) {
+      console.log(error);
+      Alert.alert('Não foi possível salvar');
+    }
   }
+
+  // Verifica Async Storage
+  useEffect(() => {
+    async function loadData() {
+      const data = await AsyncStorage.getItem(dataKey);
+      console.log(JSON.parse(data!)); // O exclamação na frente do data é do TS para dizer que sempre terá um valor ali
+    }
+    loadData();
+
+    // Limpar o AsyncStorage para garantir que não haverá dados duplicados
+    // async function removeAll() {
+    //   await AsyncStorage.removeItem(dataKey);
+    // }
+    // removeAll();
+  }, []);
 
   return (
     <TouchableWithoutFeedback
