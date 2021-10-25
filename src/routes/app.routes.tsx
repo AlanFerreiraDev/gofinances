@@ -4,7 +4,7 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { useTheme } from 'styled-components'; 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-const { Navigator, Screen } = createBottomTabNavigator();
+const { Navigator, Screen } = createBottomTabNavigator(); 
 
 // Screens  
 import { Dashboard } from '../screens/Dashboard';

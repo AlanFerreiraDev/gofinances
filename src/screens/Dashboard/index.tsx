@@ -19,6 +19,7 @@ import {
   Transactions,
   Title,
   TransactionList,
+  LogoutButton
 } from './styles';
 
 // Pego o que existe em TransactionCardProps e adiciono o id
@@ -79,7 +80,10 @@ export function Dashboard() {
               <UserName>Alan</UserName>
             </User>
           </UserInfo>
-          <Icon name="power" />
+          {/* Para usar o BordellesButton do gesture handler*/}
+          <LogoutButton onPress={() => {}}>
+            <Icon name="power" />
+          </LogoutButton>
         </UserWrapper>
       </Header>
 

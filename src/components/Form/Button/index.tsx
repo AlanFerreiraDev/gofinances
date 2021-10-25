@@ -1,9 +1,9 @@
 import React from 'react';
-import { TouchableOpacityProps } from 'react-native';
+import { RectButtonProps } from 'react-native-gesture-handler';
 import { Container, Title } from './styles';
 
 // Aqui tenho todas as caracteristicas do ToachableOpacity, mais o title
-interface Props extends TouchableOpacityProps {
+interface Props extends RectButtonProps {
   title: string;
 }
 
